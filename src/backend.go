@@ -65,20 +65,22 @@ func fillTrainingDay(table TableContent) []TrainingDay {
 }
 
 func fillExcerciseName(table TableContent, train []TrainingDay) {
-	rowsPerDay := int(table.RowsNum) / len(train)
-
-	for i := 0; i < len(train); i++ { // iterating through each training day
-		startRow := i * rowsPerDay
-		endRow := startRow + rowsPerDay
-
-		for j := startRow; j < endRow; j++ {
-			for k := 0; k < int(table.ColsNum); k += 4 { // iterating every fourth column for exercise names
-				exerciseName := table.TableMatrix[j][k]
-				train[i].ExcerciseName = append(train[i].ExcerciseName, exerciseName)
-			}
+	day := 0
+	for i := 0; i < int(table.ColsNum); i += 4 {
+		if day >= len(train) {
+			break
 		}
+
+		for j := 0; j < int(table.RowsNum); j++ {
+			exerciseName := table.TableMatrix[j][i]
+			train[day].ExcerciseName = append(train[day].ExcerciseName, exerciseName)
+		}
+		day++
 	}
 }
+
+// 0 0, 1 0, 2 0, 3 0, 4 0, 5 0, 6 0
+// 0 4, 1 4, 2 4, 3 4, 4 4, 5 4, 6 4
 
 func fillRep(table TableContent, train []TrainingDay) {
 	for i := 0; i < len(train); i++ {
