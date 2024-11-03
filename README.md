@@ -48,6 +48,9 @@ The Fitness Tracker is a Go-based application designed to help users track their
 - Development of the graphical user interface (UI) to improve user interaction.
 - Enhancements to data visualization and reporting features.
 - Expansion of the application to support additional fitness tracking features.
+- Counting statistics on all of your workout Data
+- Writing your Train data into dataBase
+- Auto progression (Toggleable)
 
 ## Contributing
 
@@ -59,4 +62,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Contact
 
-For questions or inquiries, please contact [your email or contact information].
+For questions or inquiries, please contact kwartiranowaja@gmail.com.
