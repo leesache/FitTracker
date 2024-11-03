@@ -83,18 +83,25 @@ func fillExcerciseName(table TableContent, train []TrainingDay) {
 // 0 4, 1 4, 2 4, 3 4, 4 4, 5 4, 6 4
 
 func fillRep(table TableContent, train []TrainingDay) {
-	for i := 0; i < len(train); i++ {
-		for j := 0; j < int(table.RowsNum); j++ {
-			for k := 2; k < int(table.ColsNum); k += 4 { // iterating over every fourth column, starting from the third
-				sets, min, max, err := parseExerciseFormat(table.TableMatrix[j][k])
-				if err != nil {
-					fmt.Printf("Error parsing Rep format at [%d][%d]: %v\n", j, k, err)
-					continue
-				}
-				exercise := Excercise{Sets: sets, Min: min, Max: max}
-				train[i].Rep = append(train[i].Rep, exercise)
-			}
+	day := 0
+	for i := 2; i < int(table.ColsNum); i += 4 {
+		if day >= len(train) {
+			break
 		}
+
+		for j := 0; j < int(table.RowsNum); j++ {
+			sets, min, max, err := parseExerciseFormat(table.TableMatrix[j][i])
+			if err != nil {
+				continue
+			}
+			exercise := Excercise{
+				Sets: sets,
+				Min:  min,
+				Max:  max,
+			}
+			train[day].Rep = append(train[day].Rep, exercise)
+		}
+		day++
 	}
 }
 
@@ -151,6 +158,7 @@ func main() {
 	table.TableMatrix = make([][]string, 0)
 
 	training := excelImportData(table)
+	fmt.Println(training)
 
 	for i, td := range training {
 		fmt.Printf("Training Day %d:\n", i+1)
